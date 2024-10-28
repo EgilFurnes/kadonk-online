@@ -17,10 +17,18 @@ function rollDice() {
     return parseInt([s1, s2].sort((a, b) => b - a).join(""));
 }
 
+function startNewRound() {
+    displayMessage("It is Kadonk-time!");
+    rolledNumber = rollDice();
+    displayMessage(`${currentPlayer} rolled: ${rolledNumber}`);
+    newRound = false;
+}
+
 function playTurn(action) {
-    if (newRound || action === "shake") {
+    if (newRound) {
+        startNewRound();
+    } else if (action === "shake") {
         rolledNumber = rollDice();
-        newRound = false;
         displayMessage(`${currentPlayer} rolled: ${rolledNumber}`);
     } else if (action === "open") {
         if (lastSent === null) {
@@ -41,6 +49,7 @@ function playTurn(action) {
             return;
         }
 
+        // Reset round and switch players
         newRound = true;
         lastSent = null;
         [currentPlayer, opponent] = [opponent, currentPlayer];
@@ -54,5 +63,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertAdjacentHTML("beforeend", `
         <button onclick="playTurn('shake')">Shake</button>
         <button onclick="playTurn('open')">Open</button>
+        <input type="number" id="sendInput" placeholder="Send a number" />
+        <button onclick="sendNumber()">Send</button>
     `);
 });
+
+function sendNumber() {
+    const send = parseInt(document.getElementById("sendInput").value);
+
+    if (!reke.includes(send)) {
+        displayMessage("Invalid: Number not allowed");
+        return;
+    } else if (reke.indexOf(send) < reke.indexOf(rolledNumber)) {
+        displayMessage("Invalid: Number too low");
+        return;
+    }
+
+    lastSent = send;
+    displayMessage(`${currentPlayer} sends: ${send}`);
+    [currentPlayer, opponent] = [opponent, currentPlayer];
+}
