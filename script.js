@@ -29,11 +29,12 @@ function startGame() {
     }
     lives = { "Player 1": lifeInput, "Player 2": lifeInput };
     gameStarted = true;
+    newRound = true;
+    displayMessage("It is Kadonk-time! Starting the game...");
     startNewRound();
 }
 
 function startNewRound() {
-    displayMessage("It is Kadonk-time!");
     rolledNumber = rollDice();
     displayMessage(`${currentPlayer} rolled: ${rolledNumber}`);
     newRound = false;
@@ -77,18 +78,6 @@ function playTurn(action) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    displayMessage("Welcome to Kadonk! Click 'Start Game' to begin.");
-
-    document.body.insertAdjacentHTML("beforeend", `
-        <button onclick="startGame()">Start Game</button>
-        <button onclick="playTurn('shake')">Shake</button>
-        <button onclick="playTurn('open')">Open</button>
-        <input type="number" id="sendInput" placeholder="Send a number" />
-        <button onclick="sendNumber()">Send</button>
-    `);
-});
-
 function sendNumber() {
     const send = parseInt(document.getElementById("sendInput").value);
 
@@ -104,3 +93,5 @@ function sendNumber() {
     displayMessage(`${currentPlayer} sends: ${send}`);
     [currentPlayer, opponent] = [opponent, currentPlayer];
 }
+
+
