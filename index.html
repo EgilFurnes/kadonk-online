@@ -21,7 +21,6 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
         .buttons, .input-section {
-            display: none;
             margin-top: 10px;
         }
         #sendInput {
@@ -36,10 +35,10 @@
     <div id="game" class="game"></div>
     <div class="buttons">
         <button id="startButton" onclick="startGame()">Start Game</button>
-        <button id="shakeButton" onclick="playTurn('shake')">Shake</button>
-        <button id="openButton" onclick="playTurn('open')">Open</button>
+        <button id="shakeButton" style="display: none;" onclick="playTurn('shake')">Shake</button>
+        <button id="openButton" style="display: none;" onclick="playTurn('open')">Open</button>
     </div>
-    <div class="input-section">
+    <div class="input-section" style="display: none;">
         <input type="number" id="sendInput" placeholder="Send a number" />
         <button onclick="sendNumber()">Send</button>
     </div>
