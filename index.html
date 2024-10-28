@@ -4,21 +4,45 @@
     <meta charset="UTF-8">
     <title>Kadonk Game</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        h1 { color: #333; }
-        .game { margin: 20px; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .game {
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .buttons, .input-section {
+            display: none;
+            margin-top: 10px;
+        }
+        #sendInput {
+            width: 80%;
+            padding: 5px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>It is Kadonk-time!</h1>
     <div id="game" class="game"></div>
-    <button onclick="startGame()">Start Game</button>
-    <button onclick="playTurn('shake')">Shake</button>
-    <button onclick="playTurn('open')">Open</button>
-    <input type="number" id="sendInput" placeholder="Send a number" />
-    <button onclick="sendNumber()">Send</button>
+    <div class="buttons">
+        <button id="startButton" onclick="startGame()">Start Game</button>
+        <button id="shakeButton" onclick="playTurn('shake')">Shake</button>
+        <button id="openButton" onclick="playTurn('open')">Open</button>
+    </div>
+    <div class="input-section">
+        <input type="number" id="sendInput" placeholder="Send a number" />
+        <button onclick="sendNumber()">Send</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
-
-

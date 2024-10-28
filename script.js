@@ -31,12 +31,17 @@ function startGame() {
     gameStarted = true;
     newRound = true;
     displayMessage("It is Kadonk-time! Starting the game...");
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById("shakeButton").style.display = "inline";
     startNewRound();
 }
 
 function startNewRound() {
     rolledNumber = rollDice();
     displayMessage(`${currentPlayer} rolled: ${rolledNumber}`);
+    document.getElementById("shakeButton").style.display = "inline";
+    document.getElementById("openButton").style.display = "inline";
+    document.querySelector(".input-section").style.display = "none";
     newRound = false;
 }
 
@@ -46,11 +51,11 @@ function playTurn(action) {
         return;
     }
 
-    if (newRound) {
-        startNewRound();
-    } else if (action === "shake") {
+    if (action === "shake") {
         rolledNumber = rollDice();
         displayMessage(`${currentPlayer} rolled: ${rolledNumber}`);
+        document.getElementById("shakeButton").style.display = "none";
+        document.querySelector(".input-section").style.display = "block";
     } else if (action === "open") {
         if (lastSent === null) {
             displayMessage("You must shake first!");
@@ -68,6 +73,9 @@ function playTurn(action) {
         if (lives["Player 1"] <= 0 || lives["Player 2"] <= 0) {
             displayMessage(`${lives["Player 1"] <= 0 ? "Player 2" : "Player 1"} wins the game!`);
             gameStarted = false;
+            document.getElementById("shakeButton").style.display = "none";
+            document.getElementById("openButton").style.display = "none";
+            document.querySelector(".input-section").style.display = "none";
             return;
         }
 
@@ -75,6 +83,7 @@ function playTurn(action) {
         lastSent = null;
         [currentPlayer, opponent] = [opponent, currentPlayer];
         displayMessage("Starting a new round...");
+        startNewRound();
     }
 }
 
@@ -91,7 +100,8 @@ function sendNumber() {
 
     lastSent = send;
     displayMessage(`${currentPlayer} sends: ${send}`);
+    document.querySelector(".input-section").style.display = "none";
+    document.getElementById("shakeButton").style.display = "inline";
+    document.getElementById("openButton").style.display = "inline";
     [currentPlayer, opponent] = [opponent, currentPlayer];
 }
-
-
